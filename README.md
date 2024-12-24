@@ -3,7 +3,20 @@
 This repository just contains an unmodified copy of the Lyra Plugins sourced from https://github.com/EpicGames/UnrealEngine.
 The intent is that this repository makes it easy to braid in specific versions of the plugins into downstream projects.
 
-This can be created via a simple script such as:
+### Braiding in a Plugin
+
+Plugins can be added to a project using [Braid](https://cristibalan.github.io/braid/).
+
+An example of braiding in a single plugin "ModularGameplayActors":
+```sh
+$ braid add --path Plugins/ModularGameplayActors https://github.com/realityforge/LyraPlugins.git Plugins/ModularGameplayActors
+Braid: Adding mirror of 'https://github.com/realityforge/LyraPlugins.git' branch 'main'.
+Braid: Added mirror at '6728c9e'.
+```
+
+### Updating to new releases of Unreal Engine
+
+The plugins can be upgraded by using commands similar to the following:
 
 ```bash
 # Checkout latest Unreal Engine release
