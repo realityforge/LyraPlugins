@@ -6,6 +6,8 @@
 
 #include "PocketLevelSystem.generated.h"
 
+#define UE_API POCKETWORLDS_API
+
 class ULocalPlayer;
 class UObject;
 class UPocketLevel;
@@ -14,8 +16,8 @@ class UPocketLevelInstance;
 /**
  *
  */
-UCLASS()
-class POCKETWORLDS_API UPocketLevelSubsystem : public UWorldSubsystem
+UCLASS(MinimalAPI)
+class UPocketLevelSubsystem : public UWorldSubsystem
 {
 	GENERATED_BODY()
 
@@ -23,9 +25,11 @@ public:
 	/**
 	 * 
 	 */
-	UPocketLevelInstance* GetOrCreatePocketLevelFor(ULocalPlayer* LocalPlayer, UPocketLevel* PocketLevel, FVector DesiredSpawnPoint);
+	UE_API UPocketLevelInstance* GetOrCreatePocketLevelFor(ULocalPlayer* LocalPlayer, UPocketLevel* PocketLevel, FVector DesiredSpawnPoint);
 
 private:
 	UPROPERTY()
 	TArray<TObjectPtr<UPocketLevelInstance>> PocketInstances;
 };
+
+#undef UE_API
