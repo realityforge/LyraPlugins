@@ -6,18 +6,22 @@
 
 #include "ModularAIController.generated.h"
 
+#define UE_API MODULARGAMEPLAYACTORS_API
+
 class UObject;
 
 /** Minimal class that supports extension by game feature plugins */
-UCLASS(Abstract, Blueprintable)
-class MODULARGAMEPLAYACTORS_API AModularAIController : public AAIController
+UCLASS(Abstract, MinimalAPI, Blueprintable)
+class AModularAIController : public AAIController
 {
 	GENERATED_BODY()
 
 public:
 	//~ Begin AActor Interface
-	virtual void PreInitializeComponents() override;
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	UE_API virtual void PreInitializeComponents() override;
+	UE_API virtual void BeginPlay() override;
+	UE_API virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	//~ End AActor Interface
 };
+
+#undef UE_API

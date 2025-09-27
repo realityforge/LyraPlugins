@@ -6,6 +6,8 @@
 
 #include "PocketCapture.generated.h"
 
+#define UE_API POCKETWORLDS_API
+
 enum ESceneCaptureSource : int;
 
 class UMaterialInterface;
@@ -16,65 +18,65 @@ class UTextureRenderTarget2D;
 class UWorld;
 struct FFrame;
 
-UCLASS(Abstract, Within=PocketCaptureSubsystem, BlueprintType, Blueprintable)
-class POCKETWORLDS_API UPocketCapture : public UObject
+UCLASS(MinimalAPI, Abstract, Within=PocketCaptureSubsystem, BlueprintType, Blueprintable)
+class UPocketCapture : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	UPocketCapture();
+	UE_API UPocketCapture();
 
-	virtual void Initialize(UWorld* InWorld, int32 RendererIndex);
-	virtual void Deinitialize();
+	UE_API virtual void Initialize(UWorld* InWorld, int32 RendererIndex);
+	UE_API virtual void Deinitialize();
 
-	virtual void BeginDestroy() override;
-
-	UFUNCTION(BlueprintCallable)
-	void SetRenderTargetSize(int32 Width, int32 Height);
+	UE_API virtual void BeginDestroy() override;
 
 	UFUNCTION(BlueprintCallable)
-	UTextureRenderTarget2D* GetOrCreateDiffuseRenderTarget();
+	UE_API void SetRenderTargetSize(int32 Width, int32 Height);
 
 	UFUNCTION(BlueprintCallable)
-	UTextureRenderTarget2D* GetOrCreateAlphaMaskRenderTarget();
+	UE_API UTextureRenderTarget2D* GetOrCreateDiffuseRenderTarget();
 
 	UFUNCTION(BlueprintCallable)
-	UTextureRenderTarget2D* GetOrCreateEffectsRenderTarget();
+	UE_API UTextureRenderTarget2D* GetOrCreateAlphaMaskRenderTarget();
 
 	UFUNCTION(BlueprintCallable)
-	void SetCaptureTarget(AActor* InCaptureTarget);
+	UE_API UTextureRenderTarget2D* GetOrCreateEffectsRenderTarget();
 
 	UFUNCTION(BlueprintCallable)
-	void SetAlphaMaskedActors(const TArray<AActor*>& InCaptureTarget);
+	UE_API void SetCaptureTarget(AActor* InCaptureTarget);
 
 	UFUNCTION(BlueprintCallable)
-	void CaptureDiffuse();
+	UE_API void SetAlphaMaskedActors(const TArray<AActor*>& InCaptureTarget);
 
 	UFUNCTION(BlueprintCallable)
-	void CaptureAlphaMask();
+	UE_API void CaptureDiffuse();
 
 	UFUNCTION(BlueprintCallable)
-	void CaptureEffects();
+	UE_API void CaptureAlphaMask();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ReleaseResources();
+	UE_API void CaptureEffects();
 
 	UFUNCTION(BlueprintCallable)
-	virtual void ReclaimResources();
+	UE_API virtual void ReleaseResources();
 
 	UFUNCTION(BlueprintCallable)
-	int32 GetRendererIndex() const;
+	UE_API virtual void ReclaimResources();
+
+	UFUNCTION(BlueprintCallable)
+	UE_API int32 GetRendererIndex() const;
 	
 protected:
 	AActor* GetCaptureTarget() const { return CaptureTargetPtr.Get(); }
 	virtual void OnCaptureTargetChanged(AActor* InCaptureTarget) {}
 
-	bool CaptureScene(UTextureRenderTarget2D* InRenderTarget, const TArray<AActor*>& InCaptureActors, ESceneCaptureSource CaptureSource, UMaterialInterface* OverrideMaterial);
+	UE_API bool CaptureScene(UTextureRenderTarget2D* InRenderTarget, const TArray<AActor*>& InCaptureActors, ESceneCaptureSource CaptureSource, UMaterialInterface* OverrideMaterial);
 
 protected:
-	TArray<UPrimitiveComponent*> GatherPrimitivesForCapture(const TArray<AActor*>& InCaptureActors) const;
+	UE_API TArray<UPrimitiveComponent*> GatherPrimitivesForCapture(const TArray<AActor*>& InCaptureActors) const;
 	
-	UPocketCaptureSubsystem* GetThumbnailSystem() const;
+	UE_API UPocketCaptureSubsystem* GetThumbnailSystem() const;
 
 protected:
 
@@ -115,3 +117,5 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	TArray<TWeakObjectPtr<AActor>> AlphaMaskActorPtrs;
 };
+
+#undef UE_API

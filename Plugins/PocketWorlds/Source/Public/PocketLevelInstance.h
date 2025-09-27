@@ -7,6 +7,8 @@
 #include "UObject/ObjectPtr.h"
 #include "PocketLevelInstance.generated.h"
 
+#define UE_API POCKETWORLDS_API
+
 class UPocketLevelSubsystem;
 
 class ULevelStreamingDynamic;
@@ -21,32 +23,32 @@ DECLARE_MULTICAST_DELEGATE_OneParam(FPocketLevelInstanceEvent, UPocketLevelInsta
 /**
  *
  */
-UCLASS(Within = PocketLevelSubsystem, BlueprintType)
-class POCKETWORLDS_API UPocketLevelInstance : public UObject
+UCLASS(MinimalAPI, Within = PocketLevelSubsystem, BlueprintType)
+class UPocketLevelInstance : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	UPocketLevelInstance();
+	UE_API UPocketLevelInstance();
 
-	virtual void BeginDestroy() override;
+	UE_API virtual void BeginDestroy() override;
 
-	void StreamIn();
-	void StreamOut();
+	UE_API void StreamIn();
+	UE_API void StreamOut();
 
-	FDelegateHandle AddReadyCallback(FPocketLevelInstanceEvent::FDelegate Callback);
-	void RemoveReadyCallback(FDelegateHandle CallbackToRemove);
+	UE_API FDelegateHandle AddReadyCallback(FPocketLevelInstanceEvent::FDelegate Callback);
+	UE_API void RemoveReadyCallback(FDelegateHandle CallbackToRemove);
 
 	virtual class UWorld* GetWorld() const override { return World; }
 
 private:
-	bool Initialize(ULocalPlayer* LocalPlayer, UPocketLevel* PocketLevel, FVector SpawnPoint);
+	UE_API bool Initialize(ULocalPlayer* LocalPlayer, UPocketLevel* PocketLevel, FVector SpawnPoint);
 
 	UFUNCTION()
-	void HandlePocketLevelLoaded();
+	UE_API void HandlePocketLevelLoaded();
 
 	UFUNCTION()
-	void HandlePocketLevelShown();
+	UE_API void HandlePocketLevelShown();
 
 private:
 	UPROPERTY()
@@ -67,3 +69,5 @@ private:
 
 	friend class UPocketLevelSubsystem;
 };
+
+#undef UE_API
