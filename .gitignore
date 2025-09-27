@@ -1,3 +1,6 @@
 # Unreal Engine Checkout from which to copy Lyra source code
 /UnrealEngine
 
+# Idea Project Infrastructure
+/LyraPlugins.iml
+/.idea
