@@ -45,7 +45,7 @@ rm -rf Plugins/GameFeatures/ Plugins/LyraExtTool/ Plugins/LyraExampleContent/
 
 # Commit changes
 git add Plugins
-git commit -m "Import 5.5.1 release "
+git commit -m "Import 5.5.1 release"
 git tag upstream_5.5.1-release
 git push
 git push --tags
