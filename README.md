@@ -34,7 +34,11 @@ git pull
 
 # Checkout latest Unreal Engine release
 rm UnrealEngine
-git clone --depth 1 --single-branch --branch=release  https://github.com/EpicGames/UnrealEngine.git
+git clone --depth 1 --single-branch --branch=release --filter=blob:none --sparse https://github.com/EpicGames/UnrealEngine.git UnrealEngine
+
+git -C UnrealEngine sparse-checkout set Samples/Games/Lyra/Plugins
+
+mv UnrealEngine/Samples/Games/Lyra/Plugins Plugins
 
 # Move released plugins into expected location
 rm -rf Plugins
