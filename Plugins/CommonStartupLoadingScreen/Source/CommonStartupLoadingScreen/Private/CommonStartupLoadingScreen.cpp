@@ -7,6 +7,14 @@
 
 #define LOCTEXT_NAMESPACE "FCommonLoadingScreenModule"
 
+/// <summary>
+/// This module creates a FCommonPreloadScreen which extends from FPreLoadScreenBase
+/// The screen shows an animated widget during the startup process of the engine.
+/// If you want to show a Movie during the startup of the engine instead, then you have to disable the CommonStartupLoadingScreen plugin
+///		This is because either an widget can be displayed during preload or a movie.
+/// 
+/// You can configure the startup movie in the Project Settings -> Movies 
+/// </summary>
 class FCommonStartupLoadingScreenModule : public IModuleInterface
 {
 public:
